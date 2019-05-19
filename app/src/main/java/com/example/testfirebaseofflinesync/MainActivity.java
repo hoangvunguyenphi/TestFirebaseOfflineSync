@@ -1,6 +1,8 @@
 package com.example.testfirebaseofflinesync;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -57,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
 
         database=FirebaseDatabase.getInstance();
-        if(!FirebaseApp.getApps(this).isEmpty()) {
-            database.setPersistenceEnabled(true);
-        }
-        database.setPersistenceEnabled(true);
+//        if(!FirebaseApp.getApps(this).isEmpty()) {
+//            database.setPersistenceEnabled(true);
+//        }
+
         DatabaseReference myFirebaseRef= database.getReference();
         myFirebaseRef.keepSynced(true);
 
@@ -80,6 +82,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (FirebaseDatabase.getInstance() != null)
+        {
+            FirebaseDatabase.getInstance().goOnline();
+        }
+    }
+    @Override
+    public void onPause() {
+
+        super.onPause();
+
+        if(FirebaseDatabase.getInstance()!=null)
+        {
+            FirebaseDatabase.getInstance().goOffline();
+        }
+    }
     public void handleNews(DatabaseReference myFirebaseRef) {
         myFirebaseRef.child("news").addChildEventListener(new ChildEventListener() {
             @Override
@@ -136,14 +156,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public static boolean isNetworkAvailable(Context con) {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) con
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
+            if (networkInfo != null && networkInfo.isConnected()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public void handleInternetConnection() {
-        DatabaseReference connectedRef = database.getReference(".info/connected");
+        final DatabaseReference connectedRef = database.getReference(".info/connected");
         connectedRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 boolean connected = snapshot.getValue(Boolean.class);
                 if (connected) {
+                    database.goOnline();
                     Log.d("123123","connected");
                     textViewConnected.setText("Connected : " + connected);
                 } else {
@@ -157,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(databaseError);
             }
         });
+        if(isNetworkAvailable(getApplicationContext())){
+
+        }
     }
 
     public static class News {
