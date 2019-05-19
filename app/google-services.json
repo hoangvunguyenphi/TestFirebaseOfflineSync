@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "224520339718",
+    "firebase_url": "https://testfirebaseofflinesync.firebaseio.com",
+    "project_id": "testfirebaseofflinesync",
+    "storage_bucket": "testfirebaseofflinesync.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224520339718:android:5c4045b7ab81929b",
+        "android_client_info": {
+          "package_name": "com.example.testfirebaseofflinesync"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224520339718-b1q6odh8gfdjnvil5htqa4kkla0ti1t0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.testfirebaseofflinesync",
+            "certificate_hash": "178a1b4226c5cb122580dcc957ac6349be6b6bdd"
+          }
+        },
+        {
+          "client_id": "224520339718-0olb67omd5i9jn0n4dqtbk4llvlnarrd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdm_gu6Mkt_AbPKfzGzBQhNq6jvNrYReE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224520339718-0olb67omd5i9jn0n4dqtbk4llvlnarrd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
